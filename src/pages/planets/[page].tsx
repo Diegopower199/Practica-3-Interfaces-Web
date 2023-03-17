@@ -7,6 +7,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const props: Array<{
     name: string;
     id: string;
+    page: number,
   }> = [];
   try {
     // https://swapi.dev/api/planets
@@ -20,10 +21,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         const name = planet.name;
         // get id from url
         const id = planet.url.split("/").slice(-2)[0];
-
+        //console.log(id);
+        const page = Math.trunc((parseInt(planet.url.split("/").slice(-2)[0]) / 11) + 1);
+        
 
         
-        return { name, id };
+
+        console.log("Pagina: ", page)
+
+        
+        return { name, id, page };
       })
     );
 
@@ -41,9 +48,10 @@ type HomeProps = {
   data: Array<{
     name: string;
     id: string;
+    page: number,
   }>;
 };
 
-export default function Home(props: HomeProps) {
+export default function Page(props: HomeProps) {
   return <PlanetsList data={props.data} />;
 }

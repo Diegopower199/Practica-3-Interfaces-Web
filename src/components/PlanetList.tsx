@@ -1,5 +1,8 @@
+import Page from "@/pages/planets/[page]";
 import Link from "next/link";
 import styled from "styled-components";
+
+let page = 0;
 
 const PlanetsList = ({
   data,
@@ -7,6 +10,7 @@ const PlanetsList = ({
   data: Array<{
     name: string;
     id: string;
+    page: number
   }>;
 }) => {
   return (
@@ -14,6 +18,7 @@ const PlanetsList = ({
       <h1>Planets</h1>
       <ul>
         {data.map((planet) => (
+          page = planet.page,
           
           <li key={planet.id}>
             <Link href={`/planet/${planet.id}`}>{planet.name}</Link>
@@ -21,19 +26,18 @@ const PlanetsList = ({
         ))}
       </ul>
       <BotonPaginas>
-            <BotonClick botonPaginaValida = {true}
+            <BotonClick botonPaginaValida = {page !== 1}
                 onClick={() => {
-                    //setPage(page - 1);
-                    window.scroll(0,0);
-                    
+                    console.log("hola");
+                    location.replace(`/planets/${page - 1}`)
                     // Poner que paginaInvalida que debo poner BotonNextOrPrevous true
                 }}
             >Anterior Pagina
             </BotonClick>
 
-            <BotonClick botonPaginaValida = {true}
+            <BotonClick botonPaginaValida = {page !== 6}
                 onClick={() => {
-                    //setPage(page + 1);
+                    location.replace(`/planets/${page + 1}`)
                     window.scroll(0,0);
                     
                 }}

@@ -60,7 +60,7 @@ const Planeta = () => {
         <h1>HOLA</h1>
         {data?.name}
         <div>
-            <Link href="/">Back</Link>
+            <Link href="/planets/1">Back</Link>
             <h1>{data?.name}</h1>
             <p>Rotation period: {data?.rotation_period}</p>
             <p>Orbital period: {data?.orbital_period}</p>
