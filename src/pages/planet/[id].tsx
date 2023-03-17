@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Planeta = () => {
     const [data, setDataPlanet] = useState<Planet | undefined>();
-    const [id, setId] = useState<number>(1);
+    const [id, setId] = useState<number>(0);
     
     const fetchData = async () => {
         try {
@@ -50,10 +50,10 @@ const Planeta = () => {
     useEffect ( () => {
         var URLactual = window.location;
         console.log("Informacion: ", URLactual.href.split("/").slice(-1)[0]);
-        fetchData();
         setId(parseInt(URLactual.href.split("/").slice(-1)[0]));
+        fetchData();
 
-    }, [id])
+    }, )
 
 
     return <>

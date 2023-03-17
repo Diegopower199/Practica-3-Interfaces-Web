@@ -1,15 +1,18 @@
 import PlanetsList from "@/components/PlanetList";
 import { PlanetsAPI } from "@/type";
+import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const props: Array<{
     name: string;
     id: string;
   }> = [];
   try {
     // https://swapi.dev/api/planets
-    const res = await fetch("https://swapi.dev/api/planets/?page=1");
+    const page = context.query.page;
+    console.log(page)
+    const res = await fetch(`https://swapi.dev/api/planets/?page=${context.query.page}`);
     const data: PlanetsAPI = await res.json();
     
     props.push(
@@ -17,26 +20,13 @@ export const getServerSideProps = async () => {
         const name = planet.name;
         // get id from url
         const id = planet.url.split("/").slice(-2)[0];
+
+
         
         return { name, id };
       })
     );
 
-    let next = data.next;
-    while (next) {
-      console.log(next);
-      const res = await fetch(next);
-      const data: PlanetsAPI = await res.json();
-      props.push(
-        ...data.results.map((planet) => {
-          const name = planet.name;
-          // get id from url
-          const id = planet.url.split("/").slice(-2)[0];
-          return { name, id };
-        })
-      );
-      next = data.next;
-    }
   } catch (error) {
     console.log(error);
   }
