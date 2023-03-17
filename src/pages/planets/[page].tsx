@@ -22,9 +22,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         // get id from url
         const id = planet.url.split("/").slice(-2)[0];
         //console.log(id);
-        const page = Math.trunc((parseInt(planet.url.split("/").slice(-2)[0]) / 11) + 1);
-        
 
+        let page = 0;
+
+        if ( (parseInt(planet.url.split("/").slice(-2)[0]) % 10) == 0) { // RESTO ES 0
+          page = Math.trunc(parseInt(planet.url.split("/").slice(-2)[0]) / 10)
+        }
+        else {
+          page = Math.trunc(parseInt(planet.url.split("/").slice(-2)[0]) / 10) + 1
+        }
+
+        
+        console.log("ID: ", id)
+        
         
 
         console.log("Pagina: ", page)
