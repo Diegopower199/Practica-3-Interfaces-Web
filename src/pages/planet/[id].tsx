@@ -57,8 +57,6 @@ const Planeta = () => {
 
 
     return <>
-        <h1>HOLA</h1>
-        {data?.name}
         <div>
             <Link href="/planets/1">Back</Link>
             <h1>{data?.name}</h1>
